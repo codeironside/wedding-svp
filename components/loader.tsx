@@ -83,7 +83,7 @@ export function Loader() {
           <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
           <WeddingRings />
           <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={4} />
-          <Environment preset="sunset" />
+          <Environment preset="studio" />
         </Canvas>
       </div>
 

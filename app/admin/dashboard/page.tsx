@@ -137,7 +137,7 @@ function ResponsesVisualization() {
       </Text3D>
 
       <OrbitControls enableZoom={false} />
-      <Environment preset="sunset" />
+      <Environment preset="studio" />
     </Canvas>
   )
 }

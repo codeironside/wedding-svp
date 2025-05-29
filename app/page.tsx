@@ -228,7 +228,7 @@ export default function HomePage() {
                 <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
                 <WeddingRings />
                 <OrbitControls enableZoom={false} />
-                <Environment preset="sunset" />
+                <Environment preset="studio" />
               </Canvas>
             </div>
 
