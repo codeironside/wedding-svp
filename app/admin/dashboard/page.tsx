@@ -39,7 +39,7 @@ import {
   Sparkles,
 } from "lucide-react"
 import Link from "next/link"
-import QRCode from "qrcode.react"
+import { QRCodeSVG } from "qrcode.react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { generateNigerianGuests } from "@/lib/dummy-data"
 import { motion } from "framer-motion"
@@ -608,7 +608,7 @@ export default function AdminDashboardPage() {
                     </p>
 
                     <div className="flex justify-center mb-2">
-                      <QRCode value={invitationUrl} size={120} level="H" includeMargin={true} fgColor="#8E4585" />
+                      <QRCodeSVG value={invitationUrl} size={120} level="H" includeMargin={true} fgColor="#8E4585" />
                     </div>
                     <p className="text-xs text-[#8E4585]/70">Scan to view digital invitation</p>
                   </div>

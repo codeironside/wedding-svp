@@ -6,7 +6,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Navbar } from "@/components/navbar"
 import { ArrowLeft, Download, Share2 } from "lucide-react"
-import QRCode from "qrcode.react"
+import { QRCodeSVG } from "qrcode.react"
 import { saveAs } from "file-saver"
 import html2canvas from "html2canvas"
 
@@ -80,7 +80,7 @@ export default function ConfirmationPage() {
               <p className="text-sm mb-4">Dear {name}, we are honored to have you join us on our special day.</p>
 
               <div className="flex justify-center mb-2">
-                <QRCode value={invitationUrl} size={120} level="H" includeMargin={true} fgColor="#8E4585" />
+                <QRCodeSVG value={invitationUrl} size={120} level="H" includeMargin={true} fgColor="#8E4585" />
               </div>
               <p className="text-xs text-[#8E4585]/70">Scan to view digital invitation</p>
             </div>

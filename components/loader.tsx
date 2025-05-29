@@ -46,8 +46,8 @@ export function Loader() {
             key={i}
             className="absolute"
             initial={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
+              x: Math.random() * 1200,
+              y: Math.random() * 800,
               opacity: 0,
             }}
             animate={{

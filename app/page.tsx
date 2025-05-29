@@ -219,8 +219,8 @@ export default function HomePage() {
               key={i}
               className="absolute"
               initial={{
-                x: Math.random() * (typeof window !== "undefined" ? window.innerWidth : 1200),
-                y: typeof window !== "undefined" ? window.innerHeight : 800,
+                x: Math.random() * 1200,
+                y: 800,
                 opacity: 0,
               }}
               animate={{
