@@ -39,9 +39,9 @@ export function Loader() {
 
   return (
     <div className="fixed inset-0 bg-gradient-to-br from-[#8E4585] via-[#A855A7] to-[#8E4585] flex flex-col items-center justify-center z-50">
-      {/* Floating decorative elements */}
+      {/* Floating decorative elements - REDUCED NUMBER */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(10)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute"
@@ -58,6 +58,11 @@ export function Loader() {
               duration: 3 + Math.random() * 2,
               repeat: Number.POSITIVE_INFINITY,
               delay: Math.random() * 2,
+              type: "tween",
+            }}
+            style={{
+              willChange: "transform, opacity",
+              backfaceVisibility: "hidden",
             }}
           >
             <Sparkles className="text-[#FAEEC8]" size={16 + Math.random() * 8} />
@@ -80,7 +85,8 @@ export function Loader() {
         <motion.div
           className="relative w-32 h-32 mx-auto"
           animate={{ rotate: 360 }}
-          transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+          transition={{ duration: 20, repeat: Number.POSITIVE_INFINITY, ease: "linear", type: "tween" }}
+          style={{ willChange: "transform", backfaceVisibility: "hidden" }}
         >
           {/* First ring */}
           <div className="absolute top-4 left-4 w-24 h-24 border-8 border-[#E8C7C8] rounded-full opacity-80" />
@@ -90,7 +96,8 @@ export function Loader() {
           <motion.div
             className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
             animate={{ scale: [1, 1.2, 1] }}
-            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, type: "tween" }}
+            style={{ willChange: "transform" }}
           >
             <HeartIcon className="text-[#FAEEC8]" size={32} fill="currentColor" />
           </motion.div>
@@ -101,7 +108,8 @@ export function Loader() {
         className="text-white text-3xl md:text-4xl font-bold mb-4 font-serif text-center"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.8, type: "spring", stiffness: 50 }}
+        style={{ willChange: "transform, opacity" }}
       >
         Adeola & Abiola
       </motion.div>
@@ -111,6 +119,7 @@ export function Loader() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.3 }}
+        style={{ willChange: "opacity" }}
       >
         {loadingText}
       </motion.div>
@@ -121,6 +130,7 @@ export function Loader() {
           initial={{ width: 0 }}
           animate={{ width: `${progress}%` }}
           transition={{ duration: 0.1 }}
+          style={{ willChange: "transform" }}
         />
       </div>
 
