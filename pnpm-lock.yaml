@@ -2788,8 +2788,8 @@ packages:
   hermes-parser@0.28.1:
     resolution: {integrity: sha512-nf8o+hE8g7UJWParnccljHumE9Vlq8F7MqIdeahl+4x0tvCUJYRrT0L7h0MMg/X9YJmkNwsfbaNNrzPtFXOscg==}
 
-  hls.js@1.6.2:
-    resolution: {integrity: sha512-rx+pETSCJEDThm/JCm8CuadcAC410cVjb1XVXFNDKFuylaayHk1+tFxhkjvnMDAfqsJHxZXDAJ3Uc2d5xQyWlQ==}
+  hls.js@1.6.3:
+    resolution: {integrity: sha512-M0pCSdnWdZ/IrkjhbNm90QobrTCVeoemEFUAWg4olld/8y6GbWoMAoEQ1XhZPCQjgMihvQvPWJJkr8KZAcV9tg==}
 
   hosted-git-info@7.0.2:
     resolution: {integrity: sha512-puUZAUKT5m8Zzvs72XWy3HtvVbTWljRE66cP60bxJzAqf2DgICo7lYTY2IHUmLnNpjYvw5bvmoHvPc0QO2a62w==}
@@ -6292,7 +6292,7 @@ snapshots:
       cross-env: 7.0.3
       detect-gpu: 5.0.70
       glsl-noise: 0.0.0
-      hls.js: 1.6.2
+      hls.js: 1.6.3
       maath: 0.10.8(@types/three@0.176.0)(three@0.176.0)
       meshline: 3.3.1(three@0.176.0)
       react: 19.0.0
@@ -7327,7 +7327,7 @@ snapshots:
     dependencies:
       hermes-estree: 0.28.1
 
-  hls.js@1.6.2: {}
+  hls.js@1.6.3: {}
 
   hosted-git-info@7.0.2:
     dependencies:
