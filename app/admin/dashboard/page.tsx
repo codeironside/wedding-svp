@@ -1,8 +1,6 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Canvas } from "@react-three/fiber"
-import { Environment, OrbitControls, Text3D } from "@react-three/drei"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -36,11 +34,15 @@ import {
   Users,
   UserCheck,
   UserX,
+  Heart,
+  Star,
+  Sparkles,
 } from "lucide-react"
 import Link from "next/link"
 import QRCode from "qrcode.react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { generateNigerianGuests } from "@/lib/dummy-data"
+import { motion } from "framer-motion"
 import type React from "react"
 
 // Generate 500 dummy Nigerian guests
@@ -88,66 +90,127 @@ const weeklyResponseData = [
 
 const COLORS = ["#E8C7C8", "#8E4585", "#4A7C59", "#C45BAA", "#5B7DB1", "#D67236", "#FAEEC8"]
 
-// 3D visualization component - Wedding Rings
+// Beautiful CSS-based visualization component
 function ResponsesVisualization() {
   return (
-    <Canvas>
-      <ambientLight intensity={0.5} />
-      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
+    <div className="relative w-full h-full flex items-center justify-center bg-gradient-to-br from-[#8E4585] to-[#A855A7] rounded-lg overflow-hidden">
+      {/* Background pattern */}
+      <div className="absolute inset-0 opacity-20">
+        <div
+          className="w-full h-full bg-repeat"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fillRule='evenodd'%3E%3Cg fill='%23FAEEC8' fillOpacity='0.3'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3Ccircle cx='10' cy='10' r='2'/%3E%3Ccircle cx='50' cy='10' r='2'/%3E%3Ccircle cx='10' cy='50' r='2'/%3E%3Ccircle cx='50' cy='50' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
+      </div>
 
-      {/* First Ring - Attending */}
-      <group position={[-2, 0, 0]}>
-        <mesh rotation={[0, 0, Math.PI / 2]}>
-          <torusGeometry args={[1, 0.3, 16, 32]} />
-          <meshStandardMaterial color="#E8C7C8" metalness={0.8} roughness={0.2} />
-        </mesh>
-        <Text3D font="/fonts/Geist_Regular.json" position={[-0.5, 0.5, 0.6]} size={0.2} height={0.1}>
-          312
-          <meshStandardMaterial color="white" />
-        </Text3D>
-      </group>
+      {/* Floating decorative elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(10)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute"
+            initial={{
+              x: Math.random() * 400,
+              y: Math.random() * 400,
+              opacity: 0,
+            }}
+            animate={{
+              y: [null, -50],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 2,
+              repeat: Number.POSITIVE_INFINITY,
+              delay: Math.random() * 2,
+            }}
+          >
+            {i % 3 === 0 ? (
+              <Heart className="text-[#FAEEC8]" size={12 + Math.random() * 8} fill="currentColor" />
+            ) : i % 3 === 1 ? (
+              <Star className="text-[#E8C7C8]" size={12 + Math.random() * 8} />
+            ) : (
+              <Sparkles className="text-white" size={12 + Math.random() * 8} />
+            )}
+          </motion.div>
+        ))}
+      </div>
 
-      {/* Second Ring - Not Attending */}
-      <group position={[0, 0, 0]}>
-        <mesh rotation={[0, 0, Math.PI / 2]}>
-          <torusGeometry args={[0.8, 0.2, 16, 32]} />
-          <meshStandardMaterial color="#8E4585" metalness={0.8} roughness={0.2} />
-        </mesh>
-        <Text3D font="/fonts/Geist_Regular.json" position={[-0.3, 0.5, 0.6]} size={0.2} height={0.1}>
-          87
-          <meshStandardMaterial color="white" />
-        </Text3D>
-      </group>
+      <div className="relative z-10 text-center text-white">
+        <h3 className="text-2xl font-bold mb-8 font-serif">RSVP Analytics</h3>
 
-      {/* Third Ring - Pending */}
-      <group position={[2, 0, 0]}>
-        <mesh rotation={[0, 0, Math.PI / 2]}>
-          <torusGeometry args={[0.9, 0.25, 16, 32]} />
-          <meshStandardMaterial color="#FAEEC8" metalness={0.8} roughness={0.2} />
-        </mesh>
-        <Text3D font="/fonts/Geist_Regular.json" position={[-0.3, 0.6, 0.6]} size={0.2} height={0.1}>
-          101
-          <meshStandardMaterial color="white" />
-        </Text3D>
-      </group>
+        <div className="grid grid-cols-3 gap-8 mb-8">
+          <motion.div
+            className="text-center"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            <motion.div
+              className="w-20 h-20 bg-[#E8C7C8] rounded-full mx-auto mb-4 flex items-center justify-center text-[#8E4585] font-bold text-2xl"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+            >
+              312
+            </motion.div>
+            <p className="text-sm font-medium">Attending</p>
+          </motion.div>
 
-      <Text3D font="/fonts/Geist_Bold.json" position={[-2.5, -1.5, 0]} size={0.3} height={0.1}>
-        RSVP Status
-        <meshStandardMaterial color="#333" />
-      </Text3D>
+          <motion.div
+            className="text-center"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            <motion.div
+              className="w-16 h-16 bg-[#8E4585] rounded-full mx-auto mb-4 flex items-center justify-center text-white font-bold text-xl border-4 border-white"
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+            >
+              87
+            </motion.div>
+            <p className="text-sm font-medium">Not Attending</p>
+          </motion.div>
 
-      <OrbitControls enableZoom={false} />
-      <Environment preset="studio" />
-    </Canvas>
+          <motion.div
+            className="text-center"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.6 }}
+          >
+            <motion.div
+              className="w-18 h-18 bg-[#FAEEC8] rounded-full mx-auto mb-4 flex items-center justify-center text-[#8E4585] font-bold text-xl"
+              animate={{ rotate: -360 }}
+              transition={{ duration: 10, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+            >
+              101
+            </motion.div>
+            <p className="text-sm font-medium">Pending</p>
+          </motion.div>
+        </div>
+
+        <motion.div
+          className="bg-white/20 backdrop-blur-sm rounded-lg p-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+        >
+          <p className="text-sm">
+            <strong>62.4%</strong> acceptance rate
+          </p>
+          <p className="text-xs opacity-80 mt-1">Total responses: 500 guests</p>
+        </motion.div>
+      </div>
+    </div>
   )
 }
 
 export default function AdminDashboardPage() {
   const [emailForm, setEmailForm] = useState({
     to: "",
-    subject: "Wedding Invitation - Adebayo & Oluwaseun",
+    subject: "Wedding Invitation - Adeola & Abiola",
     message:
-      "Dear [Guest Name],\n\nWe are delighted to invite you to celebrate our wedding on May 5th, 2025 in Lagos, Nigeria.\n\nPlease RSVP by clicking the link below:\n[RSVP Link]\n\nWe look forward to sharing our special day with you.\n\nWarm regards,\nAdebayo & Oluwaseun",
+      "Dear [Guest Name],\n\nWe are delighted to invite you to celebrate our wedding on August 8th, 2025 in Lagos, Nigeria.\n\nPlease RSVP by clicking the link below:\n[RSVP Link]\n\nWe look forward to sharing our special day with you.\n\nWarm regards,\nAdeola & Abiola",
   })
 
   const [isSending, setIsSending] = useState(false)
@@ -239,7 +302,7 @@ export default function AdminDashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAEEC8]">
+    <div className="min-h-screen bg-gradient-to-br from-[#FAEEC8] to-[#F5E6B8]">
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
           <Link href="/" className="inline-flex items-center text-[#8E4585] hover:underline">
@@ -255,57 +318,46 @@ export default function AdminDashboardPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-lg font-medium flex items-center">
-                <Users className="mr-2 text-[#E8C7C8]" size={20} />
-                Total RSVPs
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold">500</div>
-              <p className="text-sm text-muted-foreground">Invited guests</p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-lg font-medium flex items-center">
-                <UserCheck className="mr-2 text-[#E8C7C8]" size={20} />
-                Attending
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold">312</div>
-              <p className="text-sm text-muted-foreground">62.4% acceptance rate</p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-lg font-medium flex items-center">
-                <UserX className="mr-2 text-[#E8C7C8]" size={20} />
-                Not Attending
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold">87</div>
-              <p className="text-sm text-muted-foreground">17.4% decline rate</p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-lg font-medium flex items-center">
-                <Clock className="mr-2 text-[#E8C7C8]" size={20} />
-                Days Remaining
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold">375</div>
-              <p className="text-sm text-muted-foreground">Until May 5th, 2025</p>
-            </CardContent>
-          </Card>
+          {[
+            { icon: Users, title: "Total RSVPs", value: "500", subtitle: "Invited guests", color: "bg-[#E8C7C8]" },
+            {
+              icon: UserCheck,
+              title: "Attending",
+              value: "312",
+              subtitle: "62.4% acceptance rate",
+              color: "bg-green-100",
+            },
+            { icon: UserX, title: "Not Attending", value: "87", subtitle: "17.4% decline rate", color: "bg-red-100" },
+            {
+              icon: Clock,
+              title: "Days Remaining",
+              value: "375",
+              subtitle: "Until August 8th, 2025",
+              color: "bg-blue-100",
+            },
+          ].map((stat, index) => (
+            <motion.div
+              key={stat.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <Card className="border border-[#8E4585]/10">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg font-medium flex items-center">
+                    <div className={`p-2 rounded-full mr-3 ${stat.color}`}>
+                      <stat.icon className="text-[#8E4585]" size={20} />
+                    </div>
+                    {stat.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold text-[#8E4585]">{stat.value}</div>
+                  <p className="text-sm text-muted-foreground">{stat.subtitle}</p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
         </div>
 
         <Tabs defaultValue="analytics">
@@ -424,7 +476,7 @@ export default function AdminDashboardPage() {
                         <YAxis />
                         <Tooltip />
                         <Legend />
-                        <Bar dataKey="responses" fill="#E6B325" />
+                        <Bar dataKey="responses" fill="#E8C7C8" />
                       </BarChart>
                     </ResponsiveContainer>
                   </div>
@@ -445,7 +497,7 @@ export default function AdminDashboardPage() {
                         <YAxis />
                         <Tooltip />
                         <Legend />
-                        <Line type="monotone" dataKey="responses" stroke="#E6B325" strokeWidth={2} />
+                        <Line type="monotone" dataKey="responses" stroke="#8E4585" strokeWidth={2} />
                       </LineChart>
                     </ResponsiveContainer>
                   </div>
@@ -454,8 +506,8 @@ export default function AdminDashboardPage() {
 
               <Card className="lg:col-span-2">
                 <CardHeader>
-                  <CardTitle>3D Visualization</CardTitle>
-                  <CardDescription>Interactive 3D view of RSVP status</CardDescription>
+                  <CardTitle>Beautiful Visualization</CardTitle>
+                  <CardDescription>Interactive view of RSVP status with Nigerian wedding theme</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="h-[400px]">
@@ -543,10 +595,10 @@ export default function AdminDashboardPage() {
                 <CardContent>
                   <div id="invitation-preview" className="bg-white p-6 rounded-lg border-4 border-[#E8C7C8] mb-4">
                     <h2 className="text-2xl font-bold mb-2 text-[#8E4585] font-serif">Wedding Invitation</h2>
-                    <p className="text-lg font-medium mb-4">Adebayo & Oluwaseun</p>
+                    <p className="text-lg font-medium mb-4">Adeola & Abiola</p>
 
                     <div className="mb-4">
-                      <p className="text-sm mb-1">Date: May 5th, 2025</p>
+                      <p className="text-sm mb-1">Date: August 8th, 2025</p>
                       <p className="text-sm mb-1">Time: 2:00 PM</p>
                       <p className="text-sm mb-1">Venue: Eko Hotels & Suites, Lagos</p>
                     </div>
